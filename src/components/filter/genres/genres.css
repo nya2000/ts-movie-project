@@ -1,0 +1,17 @@
+.genres_list ul {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    font-size: 16px;
+    margin-top: 12px;
+    align-items: flex-start;
+    padding: 0;
+}
+
+.genres_list li {
+    font-weight: 400;
+}
+.genres_list li label {
+    margin-left: 5px;
+    color: #fff;
+}

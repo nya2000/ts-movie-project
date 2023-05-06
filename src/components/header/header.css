@@ -1,0 +1,19 @@
+header {
+    height: 60px;
+    background-color: rgb(168 239 255 / 10%);
+    color: #fff;
+}
+header .container {
+    display: flex;
+    justify-content: space-evenly;
+    height: inherit;
+    align-items: center;
+}
+header button {
+    height: fit-content;
+}
+.header_container {
+    width: 1384px;
+    display: flex;
+    justify-content: space-between;
+}
