@@ -1,5 +1,5 @@
 import { SELECT_DEFAULT_OPTION, SELECT_DETAILS } from 'src/shared/const';
-import { DEFAULT_MOVIES_LIST } from 'src/shared/movies-list';
+import { DEFAULT_MOVIES_LIST } from 'src/data/movies-list';
 import { MovieItemType } from 'src/shared/types';
 
 export const sortByDetails = (
@@ -51,13 +51,13 @@ export const defaultFilter = () => {
 
 export const filterMovies = (
     movies: MovieItemType[],
-    selectDetails: { selectDetail: string },
-    selectYear: { selectYear: string },
+    selectDetails: string,
+    selectYear: string,
     genres: number[]
 ) => {
-    const sortedByDetails = sortByDetails(movies, selectDetails.selectDetail);
+    const sortedByDetails = sortByDetails(movies, selectDetails);
 
-    const sortedByYears = sortByYear(sortedByDetails, selectYear.selectYear);
+    const sortedByYears = sortByYear(sortedByDetails, selectYear);
 
     return sortByGenres(sortedByYears, genres);
 };

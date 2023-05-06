@@ -13,7 +13,7 @@ import {
     selectYearOptions,
 } from 'src/shared/const';
 import { defaultFilter, filterMovies } from 'src/shared/filters';
-import { DEFAULT_MOVIES_LIST } from 'src/shared/movies-list';
+import { DEFAULT_MOVIES_LIST } from 'src/data/movies-list';
 import { MoviesStore, AuthenticationStore } from 'src/shared/types';
 import './filter.css';
 
@@ -40,16 +40,14 @@ const Filter = ({
     const savedMovies = useSelector(
         (state: MoviesStore) => state.movies.savedMovies
     );
-    const [selectDetails, setSelectDetails] = useState({
-        selectDetail: SELECT_DEFAULT_OPTION.DETAILS,
-    });
-    const [selectYear, setSelectYear] = useState({
-        selectYear: SELECT_DEFAULT_OPTION.YEAR,
-    });
+    const [selectDetails, setSelectDetails] = useState(
+        SELECT_DEFAULT_OPTION.DETAILS
+    );
+    const [selectYear, setSelectYear] = useState(SELECT_DEFAULT_OPTION.YEAR);
 
-    const [selectMoviesList, setSelectMoviesList] = useState({
-        selectList: SELECT_DEFAULT_OPTION.MOVIES_LIST,
-    });
+    const [selectMoviesList, setSelectMoviesList] = useState(
+        SELECT_DEFAULT_OPTION.MOVIES_LIST
+    );
     const [genres, setGenres] = useState<number[]>([]);
 
     function getMoviesList(selector: string) {
@@ -64,7 +62,7 @@ const Filter = ({
     }
 
     useEffect(() => {
-        const movies = getMoviesList(selectMoviesList.selectList);
+        const movies = getMoviesList(selectMoviesList);
         const sortedMovies = filterMovies(
             movies,
             selectDetails,
@@ -75,13 +73,9 @@ const Filter = ({
     }, [selectDetails, selectYear, genres, selectMoviesList]);
 
     const resetFilters = () => {
-        setSelectDetails({
-            selectDetail: SELECT_DEFAULT_OPTION.DETAILS,
-        });
-        setSelectYear({
-            selectYear: SELECT_DEFAULT_OPTION.YEAR,
-        });
-        setSelectMoviesList({ selectList: SELECT_DEFAULT_OPTION.MOVIES_LIST });
+        setSelectDetails(SELECT_DEFAULT_OPTION.DETAILS);
+        setSelectYear(SELECT_DEFAULT_OPTION.YEAR);
+        setSelectMoviesList(SELECT_DEFAULT_OPTION.MOVIES_LIST);
         setGenres([]);
         dispatch(ADD_FILTERED_MOVIES(defaultFilter()));
     };
@@ -100,29 +94,25 @@ const Filter = ({
                 <h4>Сортировать по:</h4>
                 <Selector
                     options={selectDetailsOptions}
-                    value={selectDetails.selectDetail}
+                    value={selectDetails}
                     onChange={(value) => {
-                        setSelectDetails({
-                            selectDetail: value,
-                        });
+                        setSelectDetails(value);
                     }}
                 />
                 <h4>Год релиза:</h4>
                 <Selector
                     options={selectYearOptions}
-                    value={selectYear.selectYear}
+                    value={selectYear}
                     onChange={(value) => {
-                        setSelectYear({
-                            selectYear: value,
-                        });
+                        setSelectYear(value);
                     }}
                 />
                 {isLogined ? (
                     <Selector
                         options={selectMoviesListOptions}
-                        value={selectMoviesList.selectList}
+                        value={selectMoviesList}
                         onChange={(value) => {
-                            setSelectMoviesList({ selectList: value });
+                            setSelectMoviesList(value);
                         }}
                     />
                 ) : null}

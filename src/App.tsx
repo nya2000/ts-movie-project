@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import Header from 'src/components/header/header';
 import MainComponent from 'src/components/main-component';
-import MovieDetails from 'src/components/movie-details/movie-details';
-import SearchMovie from 'src/components/search-movie/search-movie';
+import MovieDetails from 'src/pages/movie-details/movie-details';
+import SearchMovie from 'src/pages/search-movie/search-movie';
 
 function App() {
     return (

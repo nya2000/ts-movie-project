@@ -1,4 +1,4 @@
-import { GENRES_LIST } from 'src/shared/genres-list';
+import { GENRES_LIST } from 'src/data/genres-list';
 import './genres.css';
 
 type GenresProps = {

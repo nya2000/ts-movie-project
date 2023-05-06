@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import format from 'date-fns/format';
 import { useParams } from 'react-router-dom';
-import { DEFAULT_MOVIES_LIST } from 'src/shared/movies-list';
+import { DEFAULT_MOVIES_LIST } from 'src/data/movies-list';
 import { MovieItemType } from 'src/shared/types';
 import './movie-details.css';
 
