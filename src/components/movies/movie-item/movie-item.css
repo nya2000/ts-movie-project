@@ -1,0 +1,40 @@
+.movie_item {
+    height: 277px;
+    width: 375px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.movie_item_poster {
+    width: 227px;
+    border: 1px solid white;
+    overflow: hidden;
+}
+.movie_item_poster img {
+    width: 193px;
+}
+.movie_item_details {
+    color: #fff;
+    width: 210px;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px 0;
+}
+.movie_item_details_header {
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-around;
+}
+.movie_item_details_header svg {
+    height: 25px;
+}
+
+.saved_icon:hover {
+    fill: red;
+}
+.favorite_icon:hover {
+    fill: #f19509;
+}
