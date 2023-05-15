@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import Authentication from 'src/components/authentication/authentication';
+import Authorization from 'src/components/authorization/authorization';
 import './header.css';
 
 const Header = () => {
@@ -14,7 +14,7 @@ const Header = () => {
                     <Link to={'/searchMovie'}>
                         <Button variant='outlined'>Search</Button>
                     </Link>
-                    <Authentication />
+                    <Authorization />
                 </div>
             </div>
         </header>

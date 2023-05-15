@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import format from 'date-fns/format';
 import { useParams } from 'react-router-dom';
 import { DEFAULT_MOVIES_LIST } from 'src/data/movies-list';
+import { movieDetails } from 'src/shared/const';
 import { MovieItemType } from 'src/shared/types';
 import './movie-details.css';
 
@@ -20,14 +21,6 @@ const MovieDetails = () => {
         backgroundRepeat: 'no-repeat',
         width: '1440px',
         height: '850px',
-    };
-    const movieDetails = {
-        width: 'inherit',
-        height: 'inherit',
-        backdropFilter: 'blur(10px)',
-        overflow: 'hidden',
-        display: 'flex',
-        alignItems: 'flex-start',
     };
 
     return (

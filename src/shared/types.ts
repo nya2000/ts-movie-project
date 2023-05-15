@@ -17,13 +17,16 @@ export type MovieItemType = {
 
 export type MoviesStore = {
     movies: {
-        filteredMovies: MovieItemType[] | [];
-        favoriteMovies: MovieItemType[] | [];
-        savedMovies: MovieItemType[] | [];
+        filteredMovies: MovieItemType[];
+        favoriteMovies: MovieItemType[];
+        savedMovies: MovieItemType[];
     };
 };
-export type AuthenticationStore = {
-    authentication: { isLogined: boolean };
+export type AuthorizationStore = {
+    authorization: { isLogined: boolean };
+};
+export type ModalStore = {
+    modal: { isOpen: boolean };
 };
 
 export type MoviesSliceInitialState = {

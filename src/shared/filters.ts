@@ -35,9 +35,8 @@ export const sortByGenres = (movies: MovieItemType[], genres: number[]) => {
         return movies.filter((item) =>
             genres.some((movie) => item.genre_ids.includes(movie))
         );
-    } else {
-        return movies;
     }
+    return movies;
 };
 
 export const defaultFilter = () => {

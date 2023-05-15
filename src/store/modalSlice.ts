@@ -9,11 +9,10 @@ const modalSlice = createSlice({
     initialState,
 
     reducers: {
-        IS_OPEN_MODAL: (state, action) => {
+        TOGGLE_MODAL: (state, action) => {
             state.isOpen = action.payload;
         },
     },
 });
-// TODO: Change reducers naming (open modal authentication... )
-export const { IS_OPEN_MODAL } = modalSlice.actions;
+export const { TOGGLE_MODAL } = modalSlice.actions;
 export default modalSlice.reducer;

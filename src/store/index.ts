@@ -10,9 +10,9 @@ import {
     persistStore,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import authReducer from 'src/components/store/authSlice';
-import modalReducer from 'src/components/store/modalSlice';
-import moviesReducer from 'src/components/store/movieSlice';
+import authReducer from 'src/store/authSlice';
+import modalReducer from 'src/store/modalSlice';
+import moviesReducer from 'src/store/movieSlice';
 
 const persistConfig = {
     key: 'root',
@@ -22,7 +22,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     movies: moviesReducer,
-    authentication: authReducer,
+    authorization: authReducer,
     modal: modalReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);

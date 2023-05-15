@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FavoriteIcon from 'src/assets/img/favorite-icon';
 import SavedIcon from 'src/assets/img/saved-icon';
-import { IS_OPEN_MODAL } from 'src/components/store/modalSlice';
+import { TOGGLE_MODAL } from 'src/store/modalSlice';
 import {
     ADD_FAVORITE_MOVIE,
     ADD_SAVED_MOVIE,
     REMOVE_FAVORITE_MOVIE,
     REMOVE_SAVED_MOVIE,
-} from 'src/components/store/movieSlice';
+} from 'src/store/movieSlice';
 import {
-    AuthenticationStore,
+    AuthorizationStore,
     MovieItemType,
     MoviesStore,
 } from 'src/shared/types';
@@ -25,7 +25,7 @@ const MovieItem = ({ movie }: { movie: MovieItemType }) => {
     const moviePoster = `https://image.tmdb.org/t/p/w500/${imagePath}`;
 
     const isLogined = useSelector(
-        (state: AuthenticationStore) => state.authentication.isLogined
+        (state: AuthorizationStore) => state.authorization.isLogined
     );
     const favoriteMovies = useSelector(
         (state: MoviesStore) => state.movies.favoriteMovies
@@ -33,21 +33,29 @@ const MovieItem = ({ movie }: { movie: MovieItemType }) => {
     const savedMovies = useSelector(
         (state: MoviesStore) => state.movies.savedMovies
     );
-    const openModal = () => {
-        dispatch(IS_OPEN_MODAL(true));
-    };
+    const handleOpenModal = () => dispatch(TOGGLE_MODAL(true));
 
     const updateMovieList = (
-        array: MovieItemType[],
-        addMovie: ActionCreatorWithPayload<MovieItemType>,
-        removeMovie: ActionCreatorWithPayload<MovieItemType>
+        movies: MovieItemType[],
+        ADD_FAVORITE_MOVIE: ActionCreatorWithPayload<MovieItemType>,
+        REMOVE_FAVORITE_MOVIE: ActionCreatorWithPayload<MovieItemType>
     ) => {
-        if (array.some((item) => item.id === movie.id)) {
-            dispatch(removeMovie(movie));
+        if (movies.some((item) => item.id === movie.id)) {
+            dispatch(REMOVE_FAVORITE_MOVIE(movie));
         } else {
-            dispatch(addMovie(movie));
+            dispatch(ADD_FAVORITE_MOVIE(movie));
         }
     };
+
+    const handleOnClick = () =>
+        isLogined
+            ? () =>
+                  updateMovieList(
+                      savedMovies,
+                      ADD_SAVED_MOVIE,
+                      REMOVE_SAVED_MOVIE
+                  )
+            : handleOpenModal;
 
     return (
         <div className='movie_item'>
@@ -66,7 +74,7 @@ const MovieItem = ({ movie }: { movie: MovieItemType }) => {
                                           ADD_FAVORITE_MOVIE,
                                           REMOVE_FAVORITE_MOVIE
                                       )
-                                : openModal
+                                : handleOpenModal
                         }
                         active={
                             isLogined
@@ -85,7 +93,7 @@ const MovieItem = ({ movie }: { movie: MovieItemType }) => {
                                           ADD_SAVED_MOVIE,
                                           REMOVE_SAVED_MOVIE
                                       )
-                                : openModal
+                                : handleOpenModal
                         }
                         active={
                             isLogined

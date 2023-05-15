@@ -1,11 +1,11 @@
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { nanoid } from 'nanoid';
 
 type Options = {
     label: string;
     value: string;
+    id: string;
 };
 
 type SelectorProps = {
@@ -40,7 +40,7 @@ const Selector = ({ options, value, onChange }: SelectorProps) => {
                 }}
             >
                 {options.map((option) => (
-                    <MenuItem key={nanoid()} value={option.value}>
+                    <MenuItem key={option.id} value={option.value}>
                         {option.label}
                     </MenuItem>
                 ))}

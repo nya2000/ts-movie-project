@@ -1,51 +1,32 @@
 import { Backdrop, Box, Button, Fade, Modal, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { AUTHENTICATION_USER } from 'src/components/store/authSlice';
-import { IS_OPEN_MODAL } from 'src/components/store/modalSlice';
 import {
     AUTH_DATA,
-    emptyString,
-    logIn,
-    logOut,
-    login,
-    password,
+    EMPTY_STRING,
+    LOG_IN,
+    LOG_OUT,
+    PASSWORD,
+    authorizationModalStyle,
 } from 'src/shared/const';
-import { AuthenticationStore } from 'src/shared/types';
-
-const authenticationModalStyle = {
-    position: 'absolute' as 'absolute',
-    borderRadius: '15px',
-    color: '#fff',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: '#28282e',
-    boxShadow: 24,
-    p: 4,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '15px',
-    alignItems: 'center',
-};
+import { AuthorizationStore, ModalStore } from 'src/shared/types';
+import { USER_AUTHORIZATION } from 'src/store/authSlice';
+import { TOGGLE_MODAL } from 'src/store/modalSlice';
 
 type AuthInputs = {
     login: string;
     password: string;
 };
-const Authentication = () => {
+const Authorization = () => {
     const dispatch = useDispatch();
 
-    const isOpen = useSelector(
-        (state: { modal: { isOpen: boolean } }) => state.modal.isOpen
-    );
+    const isOpen = useSelector((state: ModalStore) => state.modal.isOpen);
     const isLogined = useSelector(
-        (state: AuthenticationStore) => state.authentication.isLogined
+        (state: AuthorizationStore) => state.authorization.isLogined
     );
 
-    const handleOpenModal = () => dispatch(IS_OPEN_MODAL(true));
-    const handleCloseModal = () => dispatch(IS_OPEN_MODAL(false));
+    const handleOpenModal = () => dispatch(TOGGLE_MODAL(true));
+    const handleCloseModal = () => dispatch(TOGGLE_MODAL(false));
 
     const {
         register,
@@ -54,23 +35,24 @@ const Authentication = () => {
         formState: { errors },
     } = useForm<AuthInputs>();
 
-    const clearAuthentication = () => {
-        setValue(login, emptyString);
-        setValue(password, emptyString);
+    const clearAuthorizationForm = () => {
+        setValue(LOG_IN, EMPTY_STRING);
+        setValue(PASSWORD, EMPTY_STRING);
     };
-    const userAuthentication = () => {
-        dispatch(AUTHENTICATION_USER(!isLogined));
-        clearAuthentication();
+
+    const userAuthorization = () => {
+        dispatch(USER_AUTHORIZATION(!isLogined));
+        clearAuthorizationForm();
         handleCloseModal();
     };
 
     return (
         <div>
             <Button
-                onClick={isLogined ? userAuthentication : handleOpenModal}
+                onClick={isLogined ? userAuthorization : handleOpenModal}
                 variant='outlined'
             >
-                {isLogined ? logOut : logIn}
+                {isLogined ? LOG_OUT : LOG_IN}
             </Button>
             <Modal
                 aria-labelledby='transition-modal-title'
@@ -87,16 +69,16 @@ const Authentication = () => {
             >
                 <Fade in={isOpen}>
                     <Box
-                        sx={authenticationModalStyle}
+                        sx={authorizationModalStyle}
                         component='form'
-                        onSubmit={handleSubmit(userAuthentication)}
+                        onSubmit={handleSubmit(userAuthorization)}
                     >
                         <TextField
                             error={!!errors.login}
                             autoComplete='off'
                             label='Login'
                             variant='outlined'
-                            {...register(login, {
+                            {...register(LOG_IN, {
                                 required: true,
                                 validate: (login) => login === AUTH_DATA.login,
                             })}
@@ -106,7 +88,7 @@ const Authentication = () => {
                             label='Password'
                             variant='outlined'
                             type='password'
-                            {...register(password, {
+                            {...register(PASSWORD, {
                                 required: true,
                                 validate: (password) =>
                                     password === AUTH_DATA.password,
@@ -126,4 +108,4 @@ const Authentication = () => {
     );
 };
 
-export default Authentication;
+export default Authorization;

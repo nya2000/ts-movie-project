@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Genres from 'src/components/filter/genres/genres';
 import Pagination from 'src/components/filter/pagination/pagination';
 import Selector from 'src/components/filter/selector/selector';
-import { ADD_FILTERED_MOVIES } from 'src/components/store/movieSlice';
+import { ADD_FILTERED_MOVIES } from 'src/store/movieSlice';
 import {
     SELECT_DEFAULT_OPTION,
     SELECT_MOVIES_LIST,
@@ -14,7 +14,7 @@ import {
 } from 'src/shared/const';
 import { defaultFilter, filterMovies } from 'src/shared/filters';
 import { DEFAULT_MOVIES_LIST } from 'src/data/movies-list';
-import { MoviesStore, AuthenticationStore } from 'src/shared/types';
+import { MoviesStore, AuthorizationStore } from 'src/shared/types';
 import './filter.css';
 
 type FilterProps = {
@@ -32,7 +32,7 @@ const Filter = ({
 }: FilterProps) => {
     const dispatch = useDispatch();
     const isLogined = useSelector(
-        (state: AuthenticationStore) => state.authentication.isLogined
+        (state: AuthorizationStore) => state.authorization.isLogined
     );
     const favoriteMovies = useSelector(
         (state: MoviesStore) => state.movies.favoriteMovies
